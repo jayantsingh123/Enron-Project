@@ -63,4 +63,32 @@ Once the model has been trained, it is supposed to be tested on the held out dat
 * It is threshold independent, and
 * It is independent of class distribution.
 
-In adition to above benefits, ROC approach can also be used to select a suitable threshold probability for classification problems. This will be discussed in later sections in more details. Coming back to the original problem of model asessment, a higher AUC indicates a better model. Using the Regularization approach, we obtained an AUC score of 0.7. This means that there is 70 percent probability that given a pair of positive and negative example, the model will give more weightage to the positive example.
+In adition to above benefits, ROC approach can also be used to select a suitable threshold probability for classification problems. This will be discussed in later sections in more details. Coming back to the original problem of model asessment, a higher AUC indicates a better model. Using the Regularization approach, we obtained an AUC score of 0.7. This means that there is 70 percent probability that given a pair of positive and negative example, the model will give more weightage to the positive example. The ROC curve has been used to find the threshold probability, which maximizes the difference between true positive rate and false positive rate. Since the obtained threshold was quite small, the model provided perfect recall at the cost of low precision.
+In an attempt to improve the recall without sacrificing the precision, it is worthwhile attempting a better model.
+
+#### Feature Engineering
+It has been often seen that generating additional information from original set of attributes helps to increase the predictive ability of the model. Therefore, we attempt to generate additional information using original attributes. For the present analysis, we have defined new features involving ratio and sum of the features related to interaction among users. The new features include,
+* **ratio of from messages to received messages**: is the POI receiving more messages than he/she is sending.
+* **proportion_from_poi**: what proportion of messgaes received by an employee is from POI.
+* **total number of messages**: gives an overall activity of the employee
+* **shared with POI prop**: Out of all messages received, what fraction was shared with POI
+* **Bonus Salary Sum** : Sum of Bonus and Salary
+* **Bonus Salary Ratio** : Ratio of Bonus to Salary
+
+Since these engineered features are designed using thw original attributes, it makes sense to drop the original ones. Next, as a check, are we still suffering from multicollinearity? In the correlation matrix, following pairs seem to be highly correlated;
+
+* total payments and loan advance,
+* exercised stock options and total stock value.
+
+Since these features do not look similar in nature, it is bit strange for them to have high correlation. They are not similar in nature, hence we shdn't drop one of them blindly. It is a better idea to use Principal Component Analysis(PCA) here.
+
+#### Principal Component Analysis
+
+PCA approach helps to reduce the dimensionality of the data, while preserving the important information. It is based on the concept of Singular Value Decomposition (SVD) of the data matrix. Please refer to any classical work on Linear Algebra for details. For the present example, we apply PCA on one pair at a given time, and keep one vector (i.e. principal component). This hopefully preserves maximum variation in the data.
+Combining Feature Engineering, PCA together with basic Logistic Regression we obtain perfect recall but low precision.
+
+#### Random Forests
+
+Random forests have been a popular classification algorithm which is least likely to overfit because of averaging as well as low bias. On top of that, it has an in-built feature selection algorithm. To begin with, we will construct a simple random forest classifier. No feature engineering will be introduced. Only original set of features will be used.
+One of the main aspects of implementing Random Forests is selection of optimal value of the hyperparameters.  For our discussion, we focus on tuning following hyper parameters; number of Decision trees(i.e. estimators), number of features selected for splitting at a tree node, and maximum depth of the tree.
+
