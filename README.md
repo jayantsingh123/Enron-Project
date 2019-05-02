@@ -3,7 +3,7 @@ Enron scandal, dating back to 2001 was one of the most darkest moments in US cor
 
 <img width="610" alt="Screen Shot 2019-05-01 at 10 42 43 PM" src="https://user-images.githubusercontent.com/27310613/57054418-86763780-6c62-11e9-85bf-e626b8a6c75b.png">.
 
-Interestingly, it has been proved that the senior executives saw it coming and were indifferent to the stakes of common shareholders and employees. This is evident from above figure.
+Interestingly, the senior executives saw it coming and were indifferent to the stakes of common shareholders and employees. This is evident from above figure.
 ## Description of the Data
 The present dataset is a condensed version of the actual Enron dataset. It has information regarding the different employees, POI's as well as non-POI's. The attributes include;
 * **Bonus**: Bonus awarded to the Employees.
@@ -32,7 +32,7 @@ The present dataset is a condensed version of the actual Enron dataset. It has i
 The given dataset has 143 records and 21 features. As seen above,the features can be grouped in three categories; Stock Related Features, Payment related features, and Interaction with other employees.
 
 ## Analysis and Discussion:
-The present analysis is aimed at building a classification model, that can help to identify a POI from a non-POI. 
+The present analysis is aimed at building a classification model, that can help to identify a POI from a non-POI. On the sidelines, we will also focus on selection of optimal threshold probabiloty for classification.
 
 ### Exploratory Data Analysis
 To begin with, some exploratory results have been presented. Since POI is acategorical variable, and other predictors are mostly numeric, box plot or violin plot seems to be suitable choice.The EDA helps to get some information regarding relationship between different predictors. For example, our analysis helped us to conclude that following variables tend to be statistically significant while predicting whether an entity is POI or not; 
@@ -80,7 +80,7 @@ Since these engineered features are designed using thw original attributes, it m
 * total payments and loan advance,
 * exercised stock options and total stock value.
 
-Since these features do not look similar in nature, it is bit strange for them to have high correlation. They are not similar in nature, hence we shdn't drop one of them blindly. It is a better idea to use Principal Component Analysis(PCA) here.
+Since these features do not look similar in nature, it is bit strange for them to have high correlation. They are not similar in nature on the surface, hence we shdn't drop one of them blindly. It is a better idea to use Principal Component Analysis(PCA) here.
 
 #### Principal Component Analysis
 
@@ -91,4 +91,20 @@ Combining Feature Engineering, PCA together with basic Logistic Regression we ob
 
 Random forests have been a popular classification algorithm which is least likely to overfit because of averaging as well as low bias. On top of that, it has an in-built feature selection algorithm. To begin with, we will construct a simple random forest classifier. No feature engineering will be introduced. Only original set of features will be used.
 One of the main aspects of implementing Random Forests is selection of optimal value of the hyperparameters.  For our discussion, we focus on tuning following hyper parameters; number of Decision trees(i.e. estimators), number of features selected for splitting at a tree node, and maximum depth of the tree.
+
+##### Hyperparameter Tuning Using AUC
+
+The above mentioned hyperparameters can be tuned using cross validation together with AUC as the performance metric. AUC has been chosen as the metric because of the reasons mentioned earlier. In addition to tuning of hyperparameters, we also plan to use AUC to find the suitable value of threshold probability. This is a novel approach discussed in our analysis.
+
+In most of the instances, we use the in-built methods, i.e. gridsearchcv or randomized search to find the optimal values for hyperparameters. The method divides the data into folds, and calculates the average of the suitable metric across all folds to choose the optimal values for hyper parameter. But if the dataset is considerably small, as in our case, dividing the dataset into several folds does not provide enough points in each validation set. Therefore, a different approach has been implemented here. Here are the main steps of this algorithm:
+
+* For each parameter combination;
+    * Perform 5-fold validation on train set,
+    * Predict probabilities on each fold,
+    * Concatenate the predicted probbailities to get enough sample size,
+    * Use the concatenated list of predicted probabilities together with the entire set of true labels to obtain the AUC.
+    
+Using this approach, we get an opportunity to test the performance of a given parameter combination on significantly larger data. At the same time, it provides a smoother ROC curve. The set of parameters that provides highest AUC is chosen as the optimal set. Moreover, we plot the histogram for the predicted probabilities corresponding to value of hyper parameters. 
+
+
 
