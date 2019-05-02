@@ -104,7 +104,7 @@ In most of the instances, we use the in-built methods, i.e. gridsearchcv or rand
     * Concatenate the predicted probbailities to get enough sample size,
     * Use the concatenated list of predicted probabilities together with the entire set of true labels to obtain the AUC.
     
-Using this approach, we get an opportunity to test the performance of a given parameter combination on significantly larger data. At the same time, it provides a smoother ROC curve. The set of parameters that provides highest AUC is chosen as the optimal set. Moreover, we plot the histogram for the predicted probabilities corresponding to value of hyper parameters. 
+Using this approach, we get an opportunity to test the performance of a given parameter combination on significantly larger data. At the same time, it provides a smoother ROC curve. The set of parameters that provides highest AUC is chosen as the optimal set. Moreover, we plot the histogram for the predicted probabilities corresponding to value of hyper parameters. Using this histogram, we can identify the threshold probability to be used on the test set.
 
 
 
