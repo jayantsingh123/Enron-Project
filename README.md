@@ -116,7 +116,7 @@ Using this approach, we get an opportunity to test the performance of a given pa
 
 To summarize, we explored the Enron dataset looking for relations between the attributes. Different types of graphics such as bar plot, violin plot, and scatter plot have been used to explore the relationship between the dependant variable and the predictors. Next, few modeling strategies have been included. The models provided perfect recall but a low precision score on this data. This performance is acceptable keeping in mind the problem at hand. Here, the primary focus is to identify all the POI's for sure. To this end, we use low threshold probability for classification, which gives few false positives too.
 
-In addition, a novel approach has been presented for tuning of hyperparameters. This method is a slight variation of typical cross-validation and is more useful for very small datasets. Moreover, in conjunction with AUC, it can also be used to select the threshold probability for classifucation purposes.
+In addition, a novel approach has been presented for tuning of hyperparameters. This method is a slight variation of typical cross-validation and is more useful for very small datasets. Moreover, in conjunction with AUC, it can also be used to select the threshold probability for classification purposes.
 
 
 
