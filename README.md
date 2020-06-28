@@ -29,7 +29,7 @@ The present dataset is a condensed version of the actual Enron dataset. It has i
 * **Email Address of the Employee**: Email address of the employee
 * **POI**: Employee is a person of interest or not.
 
-The given dataset has 143 records and 21 features. As seen above,the features can be grouped in three categories; Stock Related Features, Payment related features, and Interaction with other employees.
+The given dataset has  143 records and 21 features. As seen above,the features can be grouped in three categories; Stock Related Features, Payment related features, and Interaction with other employees.
 
 ## Analysis and Discussion:
 The present analysis is aimed at building a classification model, that can help to identify a POI from a non-POI. On the sidelines, we will also focus on selection of optimal threshold probability for classification.
